@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import http from "../utils/http";
 import NotFound from "./NotFound";
+import EditProfile from "./EditProfile";
 const Profile = () => {
   const params = useParams();
   const [user, setUser] = useState();
@@ -29,6 +30,7 @@ const Profile = () => {
       return false;
     }
   };
+  console.log(isOwnProfile());
   return (
     <>
       {error ? (
@@ -62,7 +64,9 @@ const Profile = () => {
               </CopyToClipboard>
             </div>
           </div>
-          <div className="right-side container-fluid rounded-end bg-success p-2"></div>
+          <div className="right-side container-fluid rounded-end bg-success p-2 text-light">
+            <EditProfile />
+          </div>
         </div>
       )}
     </>
