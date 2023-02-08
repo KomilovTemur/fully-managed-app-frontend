@@ -30,7 +30,19 @@ const Profile = () => {
       return false;
     }
   };
-  console.log(isOwnProfile());
+  const uploadFile = (e) => {
+    const file = e.target.files[0]
+    http.post(`/users/${user.username}/uploadAvatar`, file, {
+      headers: {
+        'Content-Type': "multipart/form-data",
+        'Authorization': localStorage.getItem("token")
+      }
+    }).then((res) => {
+      console.log(res);
+    }).catch(err => {
+      console.log(err.response.data);
+    })
+  }
   return (
     <>
       {error ? (
@@ -45,6 +57,16 @@ const Profile = () => {
                 style={{ width: "330px", height: "330px" }}
                 className="rounded"
               />
+              {isOwnProfile ? <form >
+                <p className="text-dark mb-0">update avatar</p>
+                <input
+                  type="file"
+                  name="avatar"
+                  encType="multipart/form-data"
+                  className="form-control"
+                  onChange={uploadFile}
+                />
+              </form> : <></>}
             </div>
             <div className="details d-flex flex-column mt-2 fs-5">
               <p>

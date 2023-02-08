@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from "react";
 import http from "../utils/http"
-import axios from "axios";
 import { useParams, Link } from "react-router-dom";
 
 const EditProfile = () => {
   const params = useParams();
-  const [user, setUser] = useState();
+  const [update, setUpdate] = useState({
+    name: "",
+    age: "",
+    username: "",
+    email: "",
+    password: "",
+  })
   const [error, setError] = useState();
   useEffect(() => {
     http
       .get(`/users/${params.username}`)
       .then((res) => {
         setError();
-        setUser(res.data);
+        setUpdate(res.data);
       })
       .catch(() => {
         setError(404);
@@ -21,11 +26,11 @@ const EditProfile = () => {
   const handleChange = (e) => {
     let name = e.target.name
     let value = e.target.value
-    setUser({ ...user, [name]: value })
+    setUpdate({ ...update, [name]: value })
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    axios(`http://localhost:4444/users/${params.username}`, user, {
+    http.patch(`/users/${params.username}`, update, {
       headers: {
         'Authorization': localStorage.getItem("token")
       }
@@ -46,7 +51,7 @@ const EditProfile = () => {
           name="name"
           className="form-control"
           placeholder="Name"
-          value={user?.name}
+          value={update?.name}
           onChange={handleChange}
         />
         <input
@@ -54,7 +59,7 @@ const EditProfile = () => {
           name="age"
           className="form-control my-2"
           placeholder="age"
-          value={user?.age}
+          value={update?.age}
           onChange={handleChange}
         />
         <input
@@ -62,7 +67,7 @@ const EditProfile = () => {
           name="username"
           className="form-control"
           placeholder="Username"
-          value={user?.username}
+          value={update?.username}
           onChange={handleChange}
         />
         <input
@@ -70,7 +75,7 @@ const EditProfile = () => {
           name="email"
           className="form-control my-2"
           placeholder="Email"
-          value={user?.email}
+          value={update?.email}
           onChange={handleChange}
         />
         <input
