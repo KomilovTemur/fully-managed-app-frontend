@@ -36,8 +36,10 @@ const EditProfile = () => {
       }
     })
       .then((res) => {
-        console.log(res.data);
-      })
+        alert("updated")
+        setUpdate(res.data)
+      }
+      )
       .catch(() => {
         setError(404);
       });

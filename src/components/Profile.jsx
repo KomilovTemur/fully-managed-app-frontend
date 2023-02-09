@@ -34,7 +34,7 @@ const Profile = () => {
     const file = e.target.files[0]
     http.post(`/users/${user.username}/uploadAvatar`, file, {
       headers: {
-        'Content-Type': "multipart/form-data",
+        'Content-Type': `auto`,
         'Authorization': localStorage.getItem("token")
       }
     }).then((res) => {
@@ -57,7 +57,7 @@ const Profile = () => {
                 style={{ width: "330px", height: "330px" }}
                 className="rounded"
               />
-              {isOwnProfile ? <form >
+              {isOwnProfile() ? <form >
                 <p className="text-dark mb-0">update avatar</p>
                 <input
                   type="file"
@@ -87,10 +87,14 @@ const Profile = () => {
             </div>
           </div>
           <div className="right-side container-fluid rounded-end bg-success p-2 text-light">
-            <EditProfile />
+            {isOwnProfile() ?
+              <EditProfile /> :
+              <h2>Other user's profile</h2>
+            }
           </div>
         </div>
-      )}
+      )
+      }
     </>
   );
 };
