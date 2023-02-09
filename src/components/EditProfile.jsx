@@ -28,6 +28,7 @@ const EditProfile = () => {
     let value = e.target.value
     setUpdate({ ...update, [name]: value })
   }
+  console.log(params.username);
   const handleSubmit = (e) => {
     e.preventDefault()
     http.patch(`/users/${params.username}`, update, {
@@ -48,7 +49,7 @@ const EditProfile = () => {
       alert("canceled")
       return
     }
-    http.delete(`/users/${params._id}`, {
+    http.delete(`/users/${update.username}`, {
       headers: {
         'Authorization': localStorage.getItem("token")
       }
@@ -56,6 +57,7 @@ const EditProfile = () => {
       .then(() => {
         alert("deleted")
         localStorage.removeItem("token")
+        localStorage.removeItem("email")
         window.location.href = "/"
       }).catch(() => {
         setError(500);
