@@ -38,10 +38,27 @@ const EditProfile = () => {
       .then((res) => {
         alert("updated")
         setUpdate(res.data)
-      }
-      )
-      .catch(() => {
+      }).catch(() => {
         setError(404);
+      });
+  }
+  const deleteAccount = () => {
+    const confirmation = confirm("Are you delete accound")
+    if (!confirmation) {
+      alert("canceled")
+      return
+    }
+    http.delete(`/users/${params._id}`, {
+      headers: {
+        'Authorization': localStorage.getItem("token")
+      }
+    })
+      .then(() => {
+        alert("deleted")
+        localStorage.removeItem("token")
+        window.location.href = "/"
+      }).catch(() => {
+        setError(500);
       });
   }
   return (
@@ -87,7 +104,10 @@ const EditProfile = () => {
           placeholder="Password"
           onChange={handleChange}
         />
-        <button className="btn btn-danger w-100 mt-2" type="submit">Update profile</button>
+        <div className="d-flex">
+          <button className="btn btn-warning w-100 mt-2" type="submit">Update profile</button>
+          <button onClick={deleteAccount} type="button" className="btn btn-danger ms-2 w-100 mt-2">Delete account</button>
+        </div>
       </form>
     </div>
   );
