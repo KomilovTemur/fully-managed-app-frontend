@@ -14,7 +14,7 @@ const Footer = () => {
             </svg>
           </a>
           <span className="mb-3 mb-md-0 text-muted">
-            © 2022 Home Store Company, Inc
+            © 2022 Temur Komilov
           </span>
         </div>
 

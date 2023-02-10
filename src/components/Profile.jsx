@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import http from "../utils/http";
 import NotFound from "./NotFound";
@@ -32,7 +32,9 @@ const Profile = () => {
   };
   const uploadFile = (e) => {
     const file = e.target.files[0]
-    http.post(`/users/${user.username}/uploadAvatar`, file, {
+    const formData = new FormData();
+    formData.append("avatar", file)
+    http.post(`/users/${user.username}/uploadAvatar`, formData, {
       headers: {
         'Content-Type': `auto`,
         'Authorization': localStorage.getItem("token")
