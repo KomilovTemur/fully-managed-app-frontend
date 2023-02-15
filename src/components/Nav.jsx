@@ -9,7 +9,7 @@ const Nav = () => {
   useEffect(() => {
     if (!(token == null)) {
       axios({
-        url: "http://localhost:4444/settings",
+        url: "https://fully-managed-api.vercel.app/settings",
         method: "get",
         headers: { Authorization: token },
       }).then((res) => {
@@ -61,7 +61,7 @@ const Nav = () => {
           <>
             <img
               className="avatar me-2"
-              src={"http://localhost:4444" + user.avatar}
+              src={"https://fully-managed-api.vercel.app" + user.avatar}
               alt={user.name}
             />
             <span className="fs-4">{user.name}</span>

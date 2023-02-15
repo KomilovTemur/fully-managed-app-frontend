@@ -54,7 +54,7 @@ const Profile = () => {
           <div className="left-side text-success fw-bold p-2 d-flex flex-column border border-2 border-success rounded-start">
             <div className="user-avatart">
               <img
-                src={"http://localhost:4444" + user?.avatar}
+                src={"https://fully-managed-api.vercel.app" + user?.avatar}
                 alt={user?.name}
                 style={{ width: "330px", height: "330px" }}
                 className="rounded"
